@@ -1,0 +1,89 @@
+#!/bin/sh
+
+brew_cask_expand_alias() {
+  brew cask info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
+}
+
+brew_cask_is_installed() {
+  local NAME=$(brew_cask_expand_alias "$1")
+  brew cask list -1 | grep -Fqx "$NAME"
+}
+
+brew_cask_install() {
+  if ! brew_cask_is_installed "$1"; then
+    brew cask install "$@"
+  fi
+}
+
+brew_cask_install_or_upgrade() {
+  if brew_cask_is_installed "$1"; then
+    echo "$1 is already installed, brew cask upgrade is not yet implemented"
+  else
+    brew cask install "$@"
+  fi
+}
+
+brew_tap 'caskroom/cask'
+brew_install_or_upgrade 'brew-cask'
+
+brew tap caskroom/versions
+
+brew_cask_install_or_upgrade 'dropbox'
+brew_cask_install_or_upgrade 'google-chrome'
+brew_cask_install_or_upgrade 'rdio'
+brew_cask_install_or_upgrade '1password'
+brew_cask_install_or_upgrade 'slack'
+brew_cask_install_or_upgrade 'adobe-creative-cloud'
+brew_cask_install_or_upgrade 'alfred'
+brew_cask_install_or_upgrade 'adium'
+brew_cask_install_or_upgrade 'drobo-dashboard'
+brew_cask_install_or_upgrade 'smcfancontrol'
+brew_cask_install_or_upgrade 'google-drive'
+brew_cask_install_or_upgrade 'sonos'
+brew_cask_install_or_upgrade 'sublime-text3'
+brew_cask_install_or_upgrade 'cyberduck'
+brew_cask_install_or_upgrade 'gpgtools'
+brew_cask_install_or_upgrade 'iterm2'
+brew_cask_install_or_upgrade 'mamp'
+brew_cask_install_or_upgrade 'livereload'
+brew_cask_install_or_upgrade 'mou'
+brew_cask_install_or_upgrade 'vlc'
+brew_cask_install_or_upgrade 'wacom-tablet'
+brew_cask_install_or_upgrade 'wkhtmltopdf'
+brew_cask_install_or_upgrade 'utorrent'
+brew_cask_install_or_upgrade 'torbrowser'
+brew_cask_install_or_upgrade 'tilemill'
+brew_cask_install_or_upgrade 'subler'
+brew_cask_install_or_upgrade 'sequel-pro'
+brew_cask_install_or_upgrade 'qgis'
+brew_cask_install_or_upgrade 'ngrok'
+brew_cask_install_or_upgrade 'layervault'
+brew_cask_install_or_upgrade 'imageoptim'
+brew_cask_install_or_upgrade 'prey'
+
+brew_install_or_upgrade 'advancecomp'
+brew_install_or_upgrade 'gifsicle'
+brew_install_or_upgrade 'jhead'
+brew_install_or_upgrade 'jpegoptim'
+brew_install_or_upgrade 'jpego'
+brew_install_or_upgrade 'optipng'
+brew_install_or_upgrade 'pngcrush'
+brew_install_or_upgrade 'pngquant'
+brew_install_or_upgrade 'pngout'
+
+brew_install_or_upgrade 'imagemagick'
+brew_install_or_upgrade 'lame'
+brew_install_or_upgrade 'wget'
+brew_install_or_upgrade 'nvm'
+brew_install_or_upgrade 'ffmpeg'
+
+gem_install_or_update 'middleman'
+gem_install_or_update 'bourbon'
+gem_install_or_update 'neat'
+gem_install_or_update 'mysql2'
+gem_install_or_update 'pry'
+gem_install_or_update 'pry-rails'
+gem_install_or_update 'sass'
+gem_install_or_update 'wicked_pdf'
+gem_install_or_update 'wkhtmltopdf-binary'
+gem_install_or_update 'image_optim'

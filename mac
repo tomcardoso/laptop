@@ -137,17 +137,14 @@ brew_launchctl_restart 'postgresql'
 brew_install_or_upgrade 'redis'
 brew_launchctl_restart 'redis'
 brew_install_or_upgrade 'the_silver_searcher'
-brew_install_or_upgrade 'vim'
 brew_install_or_upgrade 'ctags'
-brew_install_or_upgrade 'tmux'
-brew_install_or_upgrade 'reattach-to-user-namespace'
 brew_install_or_upgrade 'imagemagick'
 brew_install_or_upgrade 'qt'
 brew_install_or_upgrade 'hub'
 brew_install_or_upgrade 'node'
 
-brew_install_or_upgrade 'rbenv'
-brew_install_or_upgrade 'ruby-build'
+brew_install_or_upgrade 'chruby'
+brew_install_or_upgrade 'ruby-install'
 
 # shellcheck disable=SC2016
 append_to_zshrc 'eval "$(rbenv init - zsh --no-rehash)"' 1
@@ -185,3 +182,13 @@ fi
 if [ -f "$HOME/.laptop.local" ]; then
   . "$HOME/.laptop.local"
 fi
+
+append_to_zshrc 'source /usr/local/share/chruby/chruby.sh'
+append_to_zshrc 'chruby ruby-2.0'
+
+append_to_zshrc 'export NVM_DIR=~/.nvm'
+append_to_zshrc 'source $(brew --prefix nvm)/nvm.sh'
+
+append_to_zshrc 'alias subl="open -a "Sublime Text"'
+
+append_to_zshrc "export PS1='🍺  \[\e[1;36m\]\W\[\e[0;33m\] \[\e[0m\]'"
